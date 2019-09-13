@@ -7,7 +7,6 @@ const middleware = require("@sustainers/middleware");
 
 const errorHandler = require("./src/error_handler");
 
-cors(app);
 middleware(app);
 
 app.post(
