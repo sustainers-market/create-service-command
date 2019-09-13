@@ -15,7 +15,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "docker build -t us.gcr.io/${_GCP_PROJECT}-staging/${_SERVICE}.${_DOMAIN}.${_ACTION} ."
+        "docker build -t us.gcr.io/${_GCP_PROJECT}-staging/${_DOMAIN}.${_ACTION} ."
       ]
     },
     {
@@ -23,7 +23,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "docker push us.gcr.io/${_GCP_PROJECT}-staging/${_SERVICE}.${_DOMAIN}.${_ACTION}"
+        "docker push us.gcr.io/${_GCP_PROJECT}-staging/${_DOMAIN}.${_ACTION}"
       ]
     },
     {
@@ -31,7 +31,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run deploy ${_SERVICE}-${_DOMAIN}-${_ACTION} --image=us.gcr.io/${_GCP_PROJECT}-staging/${_SERVICE}.${_DOMAIN}.${_ACTION} --platform=managed --memory=${_MEMORY} --project=${_GCP_PROJECT}-staging --region=${_GCP_REGION} --set-env-vars=NODE_ENV=staging,NETWORK=${_NETWORK},SERVICE=${_SERVICE},DOMAIN=${_DOMAIN},ACTION=${_ACTION},GCP_PROJECT=${_GCP_PROJECT},GCP_REGION=${_GCP_REGION}"
+        "gcloud beta run deploy ${_DOMAIN}-${_ACTION} --image=us.gcr.io/${_GCP_PROJECT}-staging/${_DOMAIN}.${_ACTION} --platform=managed --memory=${_MEMORY} --project=${_GCP_PROJECT}-staging --region=${_GCP_REGION} --set-env-vars=NODE_ENV=staging,NETWORK=${_NETWORK},SERVICE=${_SERVICE},DOMAIN=${_DOMAIN},ACTION=${_ACTION},GCP_PROJECT=${_GCP_PROJECT},GCP_REGION=${_GCP_REGION}"
       ]
     },
     {
@@ -71,7 +71,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run domain-mappings create --platform=managed --service=${_SERVICE}-${_DOMAIN}-${_ACTION} --domain=${_ACTION}.${_DOMAIN}.${_SERVICE}.staging.${_NETWORK} --project=${_GCP_PROJECT}-staging --region=${_GCP_REGION} || exit 0"
+        "gcloud beta run domain-mappings create --platform=managed --service=${_DOMAIN}-${_ACTION} --domain=${_ACTION}.${_DOMAIN}.${_SERVICE}.staging.${_NETWORK} --project=${_GCP_PROJECT}-staging --region=${_GCP_REGION} || exit 0"
       ]
     },
     {
@@ -79,7 +79,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud pubsub topics create did-${_ACTION}.${_DOMAIN}.${_SERVICE} --project=${_GCP_PROJECT}-staging || exit 0"
+        "gcloud pubsub topics create did-${_ACTION}.${_DOMAIN} --project=${_GCP_PROJECT}-staging || exit 0"
       ]
     },
     {
@@ -97,7 +97,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "docker build -t us.gcr.io/${_GCP_PROJECT}/${_SERVICE}.${_DOMAIN}.${_ACTION} ."
+        "docker build -t us.gcr.io/${_GCP_PROJECT}/${_DOMAIN}.${_ACTION} ."
       ]
     },
     {
@@ -105,7 +105,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "docker push us.gcr.io/${_GCP_PROJECT}/${_SERVICE}.${_DOMAIN}.${_ACTION}"
+        "docker push us.gcr.io/${_GCP_PROJECT}/${_DOMAIN}.${_ACTION}"
       ]
     },
     {
@@ -113,7 +113,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run deploy ${_SERVICE}-${_DOMAIN}-${_ACTION} --image=us.gcr.io/${_GCP_PROJECT}/${_SERVICE}.${_DOMAIN}.${_ACTION} --platform=managed --memory=${_MEMORY} --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=NODE_ENV=sandbox,NETWORK=${_NETWORK},SERVICE=${_SERVICE},DOMAIN=${_DOMAIN},ACTION=${_ACTION},GCP_PROJECT=${_GCP_PROJECT},GCP_REGION=${_GCP_REGION}"
+        "gcloud beta run deploy ${_DOMAIN}-${_ACTION} --image=us.gcr.io/${_GCP_PROJECT}/${_DOMAIN}.${_ACTION} --platform=managed --memory=${_MEMORY} --project=${_GCP_PROJECT} --region=${_GCP_REGION} --set-env-vars=NODE_ENV=sandbox,NETWORK=${_NETWORK},SERVICE=${_SERVICE},DOMAIN=${_DOMAIN},ACTION=${_ACTION},GCP_PROJECT=${_GCP_PROJECT},GCP_REGION=${_GCP_REGION}"
       ]
     },
     {
@@ -153,7 +153,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud beta run domain-mappings create --platform=managed --service=${_SERVICE}-${_DOMAIN}-${_ACTION} --domain=${_ACTION}.${_DOMAIN}.${_SERVICE}.${_NETWORK} --project=${_GCP_PROJECT} --region=${_GCP_REGION} || exit 0"
+        "gcloud beta run domain-mappings create --platform=managed --service=${_DOMAIN}-${_ACTION} --domain=${_ACTION}.${_DOMAIN}.${_SERVICE}.${_NETWORK} --project=${_GCP_PROJECT} --region=${_GCP_REGION} || exit 0"
       ]
     },
     {
@@ -161,7 +161,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud pubsub topics create did-${_ACTION}.${_DOMAIN}.${_SERVICE} --project=${_GCP_PROJECT} || exit 0"
+        "gcloud pubsub topics create did-${_ACTION}.${_DOMAIN} --project=${_GCP_PROJECT} || exit 0"
       ]
     },
     {
@@ -169,7 +169,7 @@
       "entrypoint": "bash",
       "args": [
         "-c",
-        "gcloud pubsub topics create did-${_ACTION}.${_DOMAIN}.${_SERVICE} --project=${_GCP_PROJECT} || exit 0"
+        "gcloud pubsub topics create did-${_ACTION}.${_DOMAIN} --project=${_GCP_PROJECT} || exit 0"
       ]
     }
   ]
