@@ -3,11 +3,10 @@ const asyncHandler = require("express-async-handler");
 const app = express();
 
 const logger = require("@sustainers/logger");
-const middleware = require("@sustainers/middleware");
+const errorMiddleware = require("@sustainers/error-middleware");
+const expressMiddleware = require("@sustainers/express-middleware");
 
-const errorHandler = require("./src/error_handler");
-
-middleware(app);
+expressMiddleware(app);
 
 app.post(
   "/",
@@ -22,6 +21,6 @@ app.post(
   })
 );
 
-errorHandler(app);
+app.use(errorMiddleware);
 
 module.exports = app;
